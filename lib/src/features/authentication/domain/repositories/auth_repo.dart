@@ -1,5 +1,4 @@
-import 'package:education_app/src/core/utils/typedef.dart';
-
+import '../../../../core/utils/typedef.dart';
 import '../entities/user_entity.dart';
 
 abstract class AuthRepo {

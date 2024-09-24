@@ -1,20 +1,37 @@
-import 'package:education_app/src/core/utils/typedef.dart';
-import 'package:education_app/src/features/authentication/domain/repositories/auth_repo.dart';
+import 'package:equatable/equatable.dart';
 
-class CreateUser {
+import '../../../../core/usecase/usecase.dart';
+import '../../../../core/utils/typedef.dart';
+import '../repositories/auth_repo.dart';
+
+class CreateUser extends UseCaseWithParams<void, CreateUserParams> {
   const CreateUser(this._repo);
 
   final AuthRepo _repo;
 
-  ResultVoid createUser({
-    required String createdAt,
-    required String name,
-    required String avatar,
-  }) async {
+  @override
+  ResultVoid call(CreateUserParams params) async {
     return await _repo.createUser(
-      createdAt: createdAt,
-      name: name,
-      avatar: avatar,
+      createdAt: params.createdAt,
+      name: params.name,
+      avatar: params.avatar,
     );
   }
+}
+
+class CreateUserParams extends Equatable {
+  final String createdAt;
+  final String name;
+  final String avatar;
+
+  const CreateUserParams({
+    required this.createdAt,
+    required this.name,
+    required this.avatar,
+  });
+
+  const CreateUserParams.empty() : this(createdAt: '', name: '', avatar: '');
+
+  @override
+  List<Object?> get props => [name, createdAt, avatar];
 }
